@@ -93,8 +93,6 @@ cd server && npm run dev
 # Terminal 2 — frontend (http://localhost:5173)
 cd client && npm run dev
 ```
-
-Open `http://localhost:5173`.
 ---
 
 ## API Routes
