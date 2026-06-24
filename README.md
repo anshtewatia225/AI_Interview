@@ -95,31 +95,6 @@ cd client && npm run dev
 ```
 
 Open `http://localhost:5173`.
-
----
-
-## Deployment
-
-### Server → Railway
-
-1. New project → Deploy from GitHub → set root directory to `server`
-2. Add a MongoDB database plugin
-3. Set environment variables:
-   ```
-   GEMINI_API_KEY=your_key
-   MONGODB_URI=<Railway MongoDB connection string>
-   ALLOWED_ORIGINS=https://your-app.vercel.app
-   ```
-
-### Client → Vercel
-
-1. Import repo → set root directory to `client`
-2. Add environment variable:
-   ```
-   VITE_API_URL=https://your-server.up.railway.app
-   ```
-3. Deploy
-
 ---
 
 ## API Routes
