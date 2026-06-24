@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from '@google/genai';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const MODEL = 'gemini-2.5-flash';
+const MODEL = 'gemini-2.0-flash';
 
 export async function getNextQuestion({ role, difficulty, topic, history }) {
   const systemInstruction = buildSystemPrompt(role, difficulty, topic);
