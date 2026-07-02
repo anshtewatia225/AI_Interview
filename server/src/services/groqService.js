@@ -21,24 +21,7 @@ export async function evaluateAnswer({ role, difficulty, topic, history, questio
     model: MODEL,
     messages,
     max_tokens: 2048,
-    response_format: {
-      type: 'json_schema',
-      json_schema: {
-        name: 'feedback',
-        strict: true,
-        schema: {
-          type: 'object',
-          properties: {
-            score: { type: 'number' },
-            whatWasGood: { type: 'string' },
-            whatWasMissing: { type: 'string' },
-            modelAnswer: { type: 'string' },
-          },
-          required: ['score', 'whatWasGood', 'whatWasMissing', 'modelAnswer'],
-          additionalProperties: false,
-        },
-      },
-    },
+    response_format: { type: 'json_object' },
   });
 
   return JSON.parse(response.choices[0].message.content);
@@ -56,7 +39,7 @@ export async function generateSummary({ role, difficulty, topic, questionAnswerP
     { role: 'system', content: buildSystemPrompt(role, difficulty, topic) },
     {
       role: 'user',
-      content: `Here is the complete interview session for a ${role} role at ${difficulty} difficulty:\n\n${historyText}\n\nProvide a final session summary. Each string field must be plain prose with no markdown.`,
+      content: `Here is the complete interview session for a ${role} role at ${difficulty} difficulty:\n\n${historyText}\n\nProvide a final session summary as a JSON object with exactly these fields: overallScore (number 1-10), grade (string like "A", "B+"), strengths (array of strings), areasToImprove (array of strings), recommendation (string). Plain prose only, no markdown.`,
     },
   ];
 
@@ -64,25 +47,7 @@ export async function generateSummary({ role, difficulty, topic, questionAnswerP
     model: MODEL,
     messages,
     max_tokens: 2048,
-    response_format: {
-      type: 'json_schema',
-      json_schema: {
-        name: 'summary',
-        strict: true,
-        schema: {
-          type: 'object',
-          properties: {
-            overallScore: { type: 'number' },
-            grade: { type: 'string' },
-            strengths: { type: 'array', items: { type: 'string' } },
-            areasToImprove: { type: 'array', items: { type: 'string' } },
-            recommendation: { type: 'string' },
-          },
-          required: ['overallScore', 'grade', 'strengths', 'areasToImprove', 'recommendation'],
-          additionalProperties: false,
-        },
-      },
-    },
+    response_format: { type: 'json_object' },
   });
 
   return JSON.parse(response.choices[0].message.content);
@@ -132,7 +97,7 @@ ${topicInstruction}
   } else if (mode === 'evaluate') {
     messages.push({
       role: 'user',
-      content: `Question: ${question}\n\nMy answer: ${answer}\n\nEvaluate my answer. Give a score from 1-10, what was good, what was missing, and a brief ideal answer outline. Each field must be plain prose with no markdown.`,
+      content: `Question: ${question}\n\nMy answer: ${answer}\n\nEvaluate my answer and return a JSON object with exactly these fields: score (number 1-10), whatWasGood (string), whatWasMissing (string), modelAnswer (string). Plain prose only, no markdown in any field.`,
     });
   }
 
