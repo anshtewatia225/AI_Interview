@@ -1,4 +1,4 @@
-import { getNextQuestion, evaluateAnswer, generateSummary } from '../services/geminiService.js';
+import { getNextQuestion, evaluateAnswer, generateSummary } from '../services/groqService.js';
 import Session from '../models/Session.js';
 
 export async function startQuestion(req, res) {
@@ -16,7 +16,7 @@ export async function startQuestion(req, res) {
     const stream = await getNextQuestion({ role, difficulty, topic, history });
 
     for await (const chunk of stream) {
-      const text = chunk.text;
+      const text = chunk.choices[0]?.delta?.content || '';
       if (text) res.write(`data: ${JSON.stringify({ text })}\n\n`);
     }
 

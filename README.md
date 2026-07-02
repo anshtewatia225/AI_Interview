@@ -1,6 +1,6 @@
 # AI Mock Interviewer
 
-A full-stack AI-powered mock interview app that asks you real technical questions, scores your answers, and gives you structured feedback — built with React, Node.js, and the Gemini API.
+A full-stack AI-powered mock interview app that asks you real technical questions, scores your answers, and gives you structured feedback — built with React, Node.js, and the Groq API.
 
 **Live demo:** _coming soon_
 
@@ -24,7 +24,7 @@ A full-stack AI-powered mock interview app that asks you real technical question
 |---|---|
 | Frontend | React 18, Vite, Tailwind CSS |
 | Backend | Node.js, Express |
-| AI | Google Gemini 2.5 Flash (`@google/genai`) |
+| AI | Groq — Llama 3.3 70B (`groq-sdk`) |
 | Database | MongoDB + Mongoose |
 | Deployment | Vercel (client) + Railway (server + DB) |
 
@@ -42,7 +42,7 @@ AI Interviewer/
     └── src/
         ├── routes/       # /api/interview
         ├── controllers/  # Request handlers
-        ├── services/     # Gemini API integration
+        ├── services/     # Groq API integration
         └── models/       # Mongoose Session schema
 ```
 
@@ -70,12 +70,12 @@ cp .env.example .env
 Edit `server/.env`:
 
 ```env
-GEMINI_API_KEY=your_gemini_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
 MONGODB_URI=mongodb://localhost:27017/ai-interviewer
 PORT=3001
 ```
 
-Get a free Gemini API key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
+Get a free Groq API key at [console.groq.com/keys](https://console.groq.com/keys).
 
 ### 3. Set up the client
 
