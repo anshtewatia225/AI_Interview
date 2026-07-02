@@ -167,7 +167,7 @@ export default function Interview({ role, difficulty, topic, onFinish }) {
               </div>
             ) : (
               <p
-                className={`animate-fade-up whitespace-pre-line text-xl font-semibold leading-snug text-white sm:text-[26px] sm:leading-[1.35] ${
+                className={`animate-fade-up whitespace-pre-line text-base font-semibold leading-relaxed text-white sm:text-lg sm:leading-[1.6] ${
                   streaming ? 'caret' : ''
                 }`}
               >
